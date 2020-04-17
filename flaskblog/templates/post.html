@@ -1,17 +1,23 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<h1>Home page</h1>
+<div><h1>Post</h1>
 <br>
 <hr>
 <hr>
 <hr>
-{% for post in posts %}
+
 <img src="{{url_for('static', filename='profile_pics/'+post.author.image_file)}}" alt="profile pic">
-<h2><a href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>
+<h2>{{ post.title }}</h2>
 <h3>{{ post.content }}</h3>
 <a href="#">{{ post.author.username }}</a>
 <small>{{ post.date_posted.strftime('%y-%m-%d') }}</small>
+<br>
+{% if post.author == current_user %}
+    <a href="{{ url_for('update_post', post_id=post.id) }}">Update</a>
+    <a href="{{ url_for('delete_post', post_id=post.id) }}">Delete</a>
+
+{% endif %}
 <hr>
-{% endfor %}
+</div>
 {% endblock content %}

@@ -6,12 +6,26 @@
 <hr>
 <hr>
 <hr>
-{% for post in posts %}
+{% for post in posts.items %}
 <img src="{{url_for('static', filename='profile_pics/'+post.author.image_file)}}" alt="profile pic">
 <h2><a href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>
 <h3>{{ post.content }}</h3>
-<a href="#">{{ post.author.username }}</a>
+<a href="{{ url_for('user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
 <small>{{ post.date_posted.strftime('%y-%m-%d') }}</small>
 <hr>
 {% endfor %}
+
+{% for page_no in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+{% if page_no %}
+{% if posts.page == page_no %}
+<a href="{{ url_for('home', page=page_no) }}">{{ page_no }}</a>
+{% else %}
+<a href="{{ url_for('home', page=page_no) }}">{{ page_no }}</a>
+{% endif %}
+{% else %}
+
+{% endif %}
+
+{% endfor %}
+
 {% endblock content %}

@@ -1,23 +1,24 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<div><h1>Post</h1>
-<br>
-<hr>
-<hr>
-<hr>
+<div>
+    <h1>Post</h1>
+    <br>
+    <hr>
+    <hr>
+    <hr>
 
-<img src="{{url_for('static', filename='profile_pics/'+post.author.image_file)}}" alt="profile pic">
-<h2>{{ post.title }}</h2>
-<h3>{{ post.content }}</h3>
-<a href="#">{{ post.author.username }}</a>
-<small>{{ post.date_posted.strftime('%y-%m-%d') }}</small>
-<br>
-{% if post.author == current_user %}
+    <img src="{{url_for('static', filename='profile_pics/'+post.author.image_file)}}" alt="profile pic">
+    <h2>{{ post.title }}</h2>
+    <h3>{{ post.content }}</h3>
+    <a href="{{ url_for('user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
+    <small>{{ post.date_posted.strftime('%y-%m-%d') }}</small>
+    <br>
+    {% if post.author == current_user %}
     <a href="{{ url_for('update_post', post_id=post.id) }}">Update</a>
     <a href="{{ url_for('delete_post', post_id=post.id) }}">Delete</a>
 
-{% endif %}
-<hr>
+    {% endif %}
+    <hr>
 </div>
 {% endblock content %}

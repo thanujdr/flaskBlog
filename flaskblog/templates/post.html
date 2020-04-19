@@ -11,12 +11,12 @@
     <img src="{{url_for('static', filename='profile_pics/'+post.author.image_file)}}" alt="profile pic">
     <h2>{{ post.title }}</h2>
     <h3>{{ post.content }}</h3>
-    <a href="{{ url_for('user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
+    <a href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
     <small>{{ post.date_posted.strftime('%y-%m-%d') }}</small>
     <br>
     {% if post.author == current_user %}
-    <a href="{{ url_for('update_post', post_id=post.id) }}">Update</a>
-    <a href="{{ url_for('delete_post', post_id=post.id) }}">Delete</a>
+    <a href="{{ url_for('posts.update_post', post_id=post.id) }}">Update</a>
+    <a href="{{ url_for('posts.delete_post', post_id=post.id) }}">Delete</a>
 
     {% endif %}
     <hr>
